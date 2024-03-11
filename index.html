@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini-Vue2</title>
+</head>
+<body>
+  <div id="root">
+    <h1>插值表达式</h1>
+    <h3>msg: {{msg}}</h3>
+    <h3>count: {{count}}</h3>
+
+    <h1>v-text</h1>
+    <div v-text="msg"></div>
+
+    <h1>v-model</h1>
+    <input type="text" v-model="msg">
+    <input type="text" v-model="count">
+  </div>
+  <script src="src/dep.js"></script>
+  <script src="src/watcher.js"></script>
+  <script src="src/compiler.js"></script>
+  <script src="src/observer.js"></script>
+  <script src="src/vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el:'#root',
+      data: {
+        msg: 'vue',
+        count: 1,
+        person: {
+          name: 'cc'
+        }
+      }
+    })
+    console.log(vm)
+  </script>
+</body>
+</html>
