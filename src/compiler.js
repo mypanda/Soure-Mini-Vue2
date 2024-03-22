@@ -25,28 +25,33 @@ class Compiler {
   compilerText(node) {
     const reg = /\{\{(.+?)\}\}/
     const value = node.textContent
-    
+
     if (reg.test(value)) {
       const key = RegExp.$1.trim()
 
+      
       // {{msg}}替换为数据，执行get依赖收集
       node.textContent = value.replace(reg, this.vm[key])
 
       // 解析{{msg}}时，把watcher中的Dep.target填充为watcher实例，并添加到data-dep的回调函数到subs中
       // new Watcher就是为了Dep收集subs
+      
       new Watcher(this.vm, key, newValue => {
         node.textContent = newValue
       })
     }
   }
+
   compilerElement(node) {
     Array.from(node.attributes).forEach(attr => {
       let attrName = attr.name
       if (this.isDirective(attrName)) {
+        debugger
         this.update(node, attr.value, attrName.substr(2))
       }
     })
   }
+
   update(node, key, attrName) {
     // 这样写的好处就是，当有新的指令时，不用侵入上层和本层方法进行修改
     const updateFn = this[`${attrName}Updater`]
@@ -54,6 +59,7 @@ class Compiler {
     // 执行的updateFn内部方法的this指向update 所以需要bind一下指向compiler
     updateFn && updateFn.call(this, node, this.vm[key], key)
   }
+
   textUpdater(node, value, key) {
     // 设置v-text的数据到页面显示，并把下次更新的函数放在data-dep:subs中
     node.textContent = value
@@ -63,6 +69,7 @@ class Compiler {
       node.textContent = newValue
     })
   }
+
   modelUpdater(node, value, key) {
     // 设置v-model的数据到页面显示，并把下次更新的函数放在data-dep:subs中,并添加元素更新函数
     node.value = value
@@ -77,9 +84,11 @@ class Compiler {
   isDirective(attrName) {
     return attrName.startsWith('v-')
   }
+
   isTextNode(node) {
     return node.nodeType === 3
   }
+
   isElementNode(node) {
     return node.nodeType === 1
   }

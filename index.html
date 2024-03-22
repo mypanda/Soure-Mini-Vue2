@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini-Vue2</title>
+  <title>Mini-Simple-Vue2</title>
 </head>
+
 <body>
   <div id="root">
     <h1>插值表达式</h1>
@@ -18,14 +20,16 @@
     <input type="text" v-model="msg">
     <input type="text" v-model="count">
   </div>
-  <script src="src/dep.js"></script>
-  <script src="src/watcher.js"></script>
-  <script src="src/compiler.js"></script>
-  <script src="src/observer.js"></script>
-  <script src="src/vue.js"></script>
+
+  <script src="./src/dep.js"></script>
+  <script src="./src/watcher.js"></script>
+  <script src="./src/compiler.js"></script>
+  <script src="./src/observer.js"></script>
+  <script src="./src/vue.js"></script>
+
   <script>
     const vm = new Vue({
-      el:'#root',
+      el: '#root',
       data: {
         msg: 'vue',
         count: 1,
@@ -37,4 +41,5 @@
     console.log(vm)
   </script>
 </body>
+
 </html>
