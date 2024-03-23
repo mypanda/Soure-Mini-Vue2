@@ -9,29 +9,45 @@
 
 <body>
   <div id="root">
-    <p>xxx:{{xxx}}, addOne:{{addOne}}</p>
     <button @click="handleClick">Add One</button>
+    <p v-if="one % 2">one:{{one}}</p>
+    <!-- <p>two:{{two}}</p> -->
+    <!-- <p>one:{{one}}, two:{{two}}</p> -->
+    <child :one="one" />
   </div>
   <script src="./vue.js"></script>
   <script>
-    new Vue({
+    const vv = new Vue({
       el: '#root',
       data() {
         return {
-          xxx: 2
+          one: 0
         }
       },
       methods: {
         handleClick() {
-          this.xxx += 1
+          this.one += 1
         }
       },
-      computed: {
-        addOne() {
-          return this.xxx + 1
+      mounted() { console.log('root') },
+      // computed: {
+      //   two() {
+      //     return this.one * 2
+      //   }
+      // },
+      components: {
+        child: {
+          mounted() { console.log('child') },
+          props: ['one'],
+          template: `
+            <div>
+              {{one}}
+            </div>
+          `
         }
       }
     })
+    console.log(vv)
   </script>
 </body>
 
